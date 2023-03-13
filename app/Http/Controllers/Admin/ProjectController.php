@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +28,8 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $types = Type::orderBy('label')->get();
-        return view('admin.projects.create', compact('project', 'types'));
+        $technologies = Technology::select('id', 'label')->orderBy('id')->get();
+        return view('admin.projects.create', compact('project', 'technologies', 'types'));
     }
 
     /**
@@ -64,8 +66,10 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::orderBy('label')->get();
+        $technologies = Technology::select('id', 'label')->orderBy('id')->get();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+
+        return view('admin.projects.edit', compact('project', 'technologies', 'types'));
     }
 
     /**

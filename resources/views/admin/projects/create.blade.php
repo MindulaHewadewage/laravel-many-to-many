@@ -61,6 +61,10 @@
                     alt="">
             </div>
 
+
+            {{-- TECHNOLOGIES --}}
+
+
             {{-- CONTENT --}}
             <div class="col-12">
                 <div class="mb-3">
