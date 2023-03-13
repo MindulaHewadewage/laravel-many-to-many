@@ -49,6 +49,9 @@ class ProjectController extends Controller
 
         $project->fill($data);
         $project->save();
+
+        // relaziono il project con la technology
+        if (Arr::exists($data, 'technologies')) $project->technologies()->attach($data['technologies']);
         return to_route('admin.projects.show', $project->id);
     }
 
@@ -67,6 +70,7 @@ class ProjectController extends Controller
     {
         $types = Type::orderBy('label')->get();
         $technologies = Technology::select('id', 'label')->orderBy('id')->get();
+        $project_technologies = $project->technologies->pluck('id')->toArray();
 
 
         return view('admin.projects.edit', compact('project', 'technologies', 'types'));
