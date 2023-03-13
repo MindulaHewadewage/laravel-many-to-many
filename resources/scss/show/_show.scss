@@ -1,0 +1,13 @@
+.show-img{
+    width: 600px;
+    height: 400px;
+}
+
+.project-description{
+    height: 400px;
+
+    .content{
+        overflow-y: auto;
+    }
+}
+
