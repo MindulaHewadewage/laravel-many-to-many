@@ -95,6 +95,9 @@ class ProjectController extends Controller
 
         $project->save();
 
+        if (Arr::exists($data, 'technologies')) $project->technologies()->sync($data['technologies']);
+        else if (count($project->technologies)) $project->technologies()->detach();
+
         return to_route('admin.projects.show', $project->id);
     }
 
@@ -103,6 +106,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->image) Storage::delete($project->image);
+        if (count($project->technologies)) $project->technologies()->detach();
         $project->delete();
         return to_route('admin.projects.index');
     }
