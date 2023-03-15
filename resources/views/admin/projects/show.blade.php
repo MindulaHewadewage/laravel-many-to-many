@@ -25,14 +25,14 @@
                 <h3>{{ $project->title }}</h3>
                 <p class="slogan text-muted">{{ $project->slogan }}</p>
                 <p class="content">{{ $project->content }}</p>
-                {{-- <p class="used-languages">
+                <p class="used-languages">
                     @forelse($project->technologies as $technology)
                         <span>{{ $technology->label }}</span>
                     @empty
                         -
                     @endforelse
 
-                </p> --}}
+                </p>
             </div>
 
             <div class="card-buttons d-flex align-items-center">
