@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     use HasFactory;
-    // protected $fillable = ['label', 'color'];
+    protected $fillable = ['label', 'color'];
 
 
     // assegno la relazione con le categorie

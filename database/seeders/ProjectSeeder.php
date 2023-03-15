@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
@@ -14,6 +16,9 @@ class ProjectSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
+        $type_ids = Type::select('id')->pluck('id')->toArray();
+
+
         for ($i = 0; $i < 5; $i++) {
             $project = new Project();
             $project->title = $faker->company();

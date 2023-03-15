@@ -37,7 +37,16 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required | string',
+            'content' => 'required | string',
+            'image' => 'nullable | image',
+            'slogan' => 'nullable | string',
+            'type_id' => 'nullable | exists:type,id',
+            'technologies' => 'nullable | exists:technologies,id'
 
+
+        ]);
 
         $data = $request->all();
         $project = new Project();
@@ -68,12 +77,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $types = Type::orderBy('label')->get();
+        $types = Type::select('id', 'label')->orderBy('label')->get();
         $technologies = Technology::select('id', 'label')->orderBy('id')->get();
         $project_technologies = $project->technologies->pluck('id')->toArray();
-
-
-        return view('admin.projects.edit', compact('project', 'technologies', 'types'));
+        return view('admin.projects.edit', compact('project', 'technologies', 'types', 'project_technologies'));
     }
 
     /**
@@ -81,6 +88,19 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $request->validate([
+            'title' => 'required | string',
+            'content' => 'required | string',
+            'image' => 'nullable | image',
+            'slogan' => 'nullable | string',
+            'type_id' => 'nullable | exists:type,id',
+            'technologies' => 'nullable | exists:technologies,id'
+
+
+        ]);
+
+
+
         $data = $request->all();
 
 
@@ -90,6 +110,7 @@ class ProjectController extends Controller
             $data['image'] = $img_url;
         }
 
+        $data['is_published'] = Arr::exists($data, 'is_published');
 
         $project->fill($data);
 
